@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from "class-validator";
 import {
   Column,
   Entity,
@@ -6,19 +6,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'tb_postagens' })
+@Entity({ name: "tb_postagens" }) // Crianção da tabela
 export class Postagem {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn() // Chave primaria com prenchimento automatico.
+  id: number; // Coluna ID 
 
   @IsNotEmpty()
   @Column({ length: 100, nullable: false })
-  titulo: string;
+  titulo: string; // Coluna Titulo 
 
   @IsNotEmpty()
   @Column({ length: 1000, nullable: false })
-  texto: string;
+  texto: string; // Coluna texo
 
   @UpdateDateColumn()
-  data: Date;
+  data: Date; // Coluna data
 }
