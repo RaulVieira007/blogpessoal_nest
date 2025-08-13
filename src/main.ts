@@ -2,19 +2,27 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const theme = new SwaggerTheme();
 
   const config = new DocumentBuilder()
-  .setTitle('Blog Pessoal')
-  .setDescription('Projeto Blog Pessoal')
-  .setContact("Raul Vieira","https://github.com/RaulVieira007/blogpessoal_nest","raul.vieiras2001@gmail.com")
-  .setVersion('1.0')
-  .addBearerAuth()
-  .build();
+    .setTitle('Blog Pessoal')
+    .setDescription('Projeto Blog Pessoal')
+    .setContact("Raul Vieira", "https://github.com/RaulVieira007/blogpessoal_nest", "raul.vieiras2001@gmail.com")
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/swagger', app, document);
+
+  const options = {
+    customSiteTitle: "Blog Pessoal",
+    customCss: theme.getBuffer(SwaggerThemeNameEnum.GRUVBOX)
+  }
+
+  SwaggerModule.setup('/swagger', app, document, options)
 
   // Variavel ambiente, Horario.
   process.env.TZ = '-03:00';
